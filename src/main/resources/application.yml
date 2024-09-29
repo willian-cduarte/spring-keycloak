@@ -1,0 +1,32 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: spring-keycloak
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: spring-security-keycloak
+            client-secret: 9LGsfG2qr3TxG7awS6cJsSPX8bzPiPDp
+            scope: openid, profile, email
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/will
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/will
+          jwk-set-uri: http://localhost:8080/realms/will/protocol/openid-connect/certs
+
+jwt:
+  auth:
+    converter:
+      resource-id: "spring-security-keycloak"
+      principal-attribute: "preferred_username"
+  
+  # Logging Configuration
+logging:
+  level:
+    org.springframework.security: DEBUG
