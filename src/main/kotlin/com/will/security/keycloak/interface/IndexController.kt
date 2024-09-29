@@ -58,23 +58,6 @@ class IndexController {
         """.trimIndent()
     }
 
-    @GetMapping("/cookie")
-    fun cookie(@AuthenticationPrincipal principal: OidcUser): String {
-        return String.format(
-            """
-            		<h1>Oauth2 🔐  </h1>
-				<h3>Principal: %s</h3>
-				<h3>Email attribute: %s</h3>
-				<h3>Authorities: %s</h3>
-				<h3>JWT: %s</h3>
-        """,
-            principal,
-            principal.getAttribute("email"),
-            principal.authorities,
-            principal.idToken.tokenValue
-        )
-    }
-
     @GetMapping("/jwt")
     fun jwt(@AuthenticationPrincipal jwt: Jwt): String {
         val authorities = if (jwt.hasClaim("authorities"))
